@@ -291,7 +291,7 @@ if [[ ! -f $SERVER_SCRIPT ]]; then
         echo "Found $FILE_COUNT files to patch"
 
         if [[ $FILE_COUNT -gt 0 ]]; then
-            find "$SERVER_DIR" -type f \( -name "*.sh" -o -name "*.js" -o -name "*.json" -o -name "*-server" \) -exec grep -l "/opt/nodejs" {} \; 2>/dev/null | while read -r file; do
+            find "$SERVER_DIR" -type f  -name "*.sh" -o -name "*.js" -o -name "*.json" -o -name "*-server"  -exec grep -l "/opt/nodejs" {} \; 2>/dev/null | while read -r file; do
                 echo "  Patching: ${file#$SERVER_DIR/}"
                 sed -i.bak "s|/opt/nodejs|${NODE_PRE_DIR}|g" "$file"
                 rm -f "${file}.bak"
