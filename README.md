@@ -45,6 +45,67 @@ running
 sudo apk add bash libstdc++
 ```
 
-## SSH configuration file
+## Features
+
+### 🔑 Automatic SSH Key Setup (New!)
+
+Tired of entering passwords every time you connect? Enable automatic SSH key setup to configure password-less authentication on first connection.
+
+**Enable in settings:**
+```json
+{
+  "remote.SSH.enableAutoSSHKeySetup": true
+}
+```
+
+The extension will:
+- Generate SSH keys automatically
+- Install them to your remote host (password required once)
+- Configure SSH for persistent connections
+- Future connections require no password!
+
+**Supported on:** Windows, macOS, and Linux
+
+📖 [Full Documentation](docs/SSH_KEY_SETUP.md)
+
+### 🔧 Custom Installation Scripts
+
+Host your own server installation scripts instead of relying on the default repository. This is useful for:
+- Using custom or modified installation scripts
+- Working in air-gapped or restricted environments
+- Maintaining your own fork of installation scripts
+
+**How to Configure:**
+
+**Option 1: Using VS Code Settings UI**
+1. Open VS Code Settings (`Ctrl+,` or `Cmd+,` on Mac)
+2. Search for `remote.SSH.serverInstallScriptUrl`
+3. Enter your custom script URL
+
+**Option 2: Using settings.json**
+1. Open Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on Mac)
+2. Type `Preferences: Open User Settings (JSON)`
+3. Add the following configuration:
+
+```json
+{
+  "remote.SSH.serverInstallScriptUrl": "https://raw.githubusercontent.com/yourusername/yourrepo/main"
+}
+```
+
+**Script Requirements:**
+- Your repository must contain platform-specific scripts named: `Linux`, `macOS`, `AIX`, `FreeBSD`, `DragonFly`
+- Scripts must be accessible via HTTP/HTTPS
+- The extension will append the platform name to your base URL
+
+**Example:**
+If you set `https://example.com/scripts`, the extension will fetch:
+- `https://example.com/scripts/Linux` for Linux systems
+- `https://example.com/scripts/macOS` for macOS systems
+- etc.
+
+**Default:** `https://raw.githubusercontent.com/KV2773/vscodium-server-script/main`
+
+### SSH Configuration File
 
 [OpenSSH](https://www.openssh.com/) supports using a [configuration file](https://linuxize.com/post/using-the-ssh-config-file/) to store all your different SSH connections. To use an SSH config file, run the `Remote-SSH: Open SSH Configuration File...` command.

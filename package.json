@@ -1,6 +1,6 @@
 {
-	"name": "open-remote-ssh",
-	"displayName": "Open Remote - SSH",
+	"name": "open-remote-ssh-dev",
+	"displayName": "Open Remote - SSH (Dev)",
 	"description": "Use any remote machine with a SSH server as your development environment.",
 	"version": "0.0.49",
 	"publisher": "jeanp413",
@@ -101,6 +101,18 @@
 				"remote.SSH.experimental.serverBinaryName": {
 					"type": "string",
 					"description": "**Experimental:** The name of the server binary, use this **only if** you are using a client without a corresponding server release",
+					"scope": "application",
+					"default": ""
+				},
+				"remote.SSH.enableAutoSSHKeySetup": {
+					"type": "boolean",
+					"markdownDescription": "Automatically generate and install SSH keys for password-less authentication on first connection. The extension will:\n- Generate an SSH key pair if it doesn't exist\n- Test if the key works\n- If not, prompt for password and install the public key to the remote host\n- Update SSH config for persistent connection settings\n\n**Supported platforms:** Windows, macOS, Linux",
+					"scope": "application",
+					"default": false
+				},
+				"remote.SSH.serverInstallScriptUrl": {
+					"type": "string",
+					"markdownDescription": "Custom URL for the server installation scripts repository. This allows you to host your own installation scripts instead of using the default GitHub repository.\n\n**Format:** `https://raw.githubusercontent.com/username/repo/branch` or any URL that serves the script files.\n\n**Script naming convention:** The extension will append the platform name (e.g., `Linux`, `macOS`, `AIX`, `FreeBSD`, `DragonFly`) to this URL.\n\n**Example:** If you set `https://example.com/scripts`, the extension will fetch `https://example.com/scripts/Linux` for Linux systems.\n\n**Default:** `https://raw.githubusercontent.com/KV2773/vscodium-server-script/main`",
 					"scope": "application",
 					"default": ""
 				}
